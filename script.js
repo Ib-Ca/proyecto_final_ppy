@@ -57,30 +57,52 @@ const menu_lugares = [
     desc: "lugar 11111111111111111111111111",
   },
 ];
-const filtros = document.querySelectorAll(".filtro_boton");
-//cargar objetos
 const section_center = document.querySelector(".section_center");
+const container_boton = document.querySelector(".container_boton");
+//cargar objetos
 window.addEventListener("DOMContentLoaded", function () {
   display_items(menu_lugares);
+  display_botones();
 });
 
-//boton filtro
-filtros.forEach(function (btn) {
-  btn.addEventListener("click", function (evento) {
-    const categoria = evento.currentTarget.dataset.id;
-    const lugares_categoria = menu_lugares.filter(function (item_lugar) {
-      //console.log(item_lugar.categoria)
-      if (item_lugar.categoria === categoria) {
-        return item_lugar;
+function display_botones() {
+  //para obtener categorías, sin repeticiones del array y poder usarlo para crear los botones usando js
+  const categorias = menu_lugares.reduce(
+    function (valor, item) {
+      if (!valor.includes(item.categoria)) {
+        valor.push(item.categoria);
+      }
+      return valor;
+    },
+    ["Todos"]
+  );
+
+  //insertar los botones en html
+  let categoria_botones = categorias.map(function (categoria) {
+    return `<button class="filtro_boton" type="button" data-id=${categoria}>${categoria}</button>`;
+  });
+  categoria_botones = categoria_botones.join("");
+  container_boton.innerHTML = categoria_botones;
+  const filtros = document.querySelectorAll(".filtro_boton");
+
+  //boton filtro
+  filtros.forEach(function (btn) {
+    btn.addEventListener("click", function (evento) {
+      const categoria = evento.currentTarget.dataset.id;
+      const lugares_categoria = menu_lugares.filter(function (item_lugar) {
+        //console.log(item_lugar.categoria)
+        if (item_lugar.categoria === categoria) {
+          return item_lugar;
+        }
+      });
+      if (categoria === "Todos") {
+        display_items(menu_lugares);
+      } else {
+        display_items(lugares_categoria);
       }
     });
-    if (categoria === "Todos") {
-      display_items(menu_lugares);
-    } else {
-      display_items(lugares_categoria);
-    }
   });
-});
+}
 
 //mostrar objetos
 function display_items(items) {
