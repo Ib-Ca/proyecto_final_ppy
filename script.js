@@ -114,7 +114,7 @@ const menu_lugares = [
             <header>
               <h4>${item.titulo}</h4>
             </header>
-            <p class=${item.desc}>${item.desc}D</p>
+            <p class=${item.desc}>${item.desc}</p>
           </div>
         </article>`;
     });
