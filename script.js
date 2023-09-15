@@ -5,7 +5,7 @@ const menu_lugares = [
       titulo: "Playa San José",
       categoria: "Playas",
       foto: "https://visitaparaguay.com.py/uploads/2345-1.webp",
-      desc: "lugar 11111111111111111111111111",
+      desc: "nuevo lugar",
     },
     {
       id: 1,
@@ -114,7 +114,7 @@ const menu_lugares = [
             <header>
               <h4>${item.titulo}</h4>
             </header>
-            <p class=${item.desc}>descripcion del lugar</p>
+            <p class=${item.desc}>${item.desc}D</p>
           </div>
         </article>`;
     });
